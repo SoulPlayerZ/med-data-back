@@ -1,9 +1,8 @@
 const connection = require('./connection');
 
-const findUser = async (login) => {
+const findUser = async () => {
   const [user] = await connection.execute(
-    'SELECT first_name FROM user where login = ? and senha = ?;',
-    [login],
+    'SELECT * FROM user;'
   );
 
   return user;
