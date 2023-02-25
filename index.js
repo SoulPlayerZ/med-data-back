@@ -1,20 +1,19 @@
 const express = require("express");
-const loginModel = require('./models/loginModel');
-
+const bodyParser = require('body-parser');
 const app = express();
+app.use(bodyParser.json());
 
-const port = 3000;
+const loginModel = require('./src/models/loginModel');
 
-app.get('/', async (_req, res) => {
-  // const { login } = req.body;
-  const user = await loginModel.findUsers();
-  
-  return res.status(200).json(user);
- 
 
+const PORT = process.env.PORT || 3000;
+
+app.get('/login', async (req, res) => {
+  const { name } = req.body;
+  const user = await loginModel.findUser(name);
+  res.status(200).json(user)
 })
 
-
-app.listen(port, () => {
-  console.log(`Listening on port ${port}` );
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}` );
 })

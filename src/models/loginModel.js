@@ -1,14 +1,14 @@
 const connection = require('./connection');
 
-const findUsers = async () => {
+const findUser = async (name) => {
   const [user] = await connection.execute(
-    'SELECT * FROM user;',
-    [],
+    'SELECT * FROM user WHERE first_name = ?;',
+    [name]
   );
 
   return user;
 };
 
 module.exports = {
-  findUsers,
+  findUser,
 };
