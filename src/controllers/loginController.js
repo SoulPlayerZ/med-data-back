@@ -1,4 +1,4 @@
-const loginModel = require('../models/loginModel');
+const loginService = require('../services/loginService');
 
 const checkInputs = (login) => {
   const verifyExist = !login
@@ -12,7 +12,7 @@ const findUser = async (req, res) => {
   if(checkInputs(name)){
     return res.status(400).json({ status: 400, message: 'Usuário inválidos ou inexistente.' })
   }
-  user = await loginModel.findUser(name);
+  user = await loginService.findUser(name);
 
   if (user.length === 0) {
     return res.status(400).json({ status: 400, message: 'Usuário inválidos ou inexistente.' })
