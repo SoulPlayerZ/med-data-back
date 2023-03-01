@@ -12,7 +12,7 @@ const checkInputs = (login) => {
   return verifyExist || verifyTypes
 }
 
-const findUser = async (req, res) => {
+const generateToken = async (req, res) => {
   try {
     const { name } = req.body;
 
@@ -24,7 +24,7 @@ const findUser = async (req, res) => {
     if(checkInputs(name)){
       return res.status(400).json({ status: 400, message: 'Usuário inválidos ou inexistente.' })
     }
-    user = await loginService.findUser(name);
+    user = await loginService.generateToken(name);
   
     if (user.length === 0) {
       return res.status(400).json({ status: 400, message: 'Usuário inválidos ou inexistente.' })
@@ -39,6 +39,21 @@ const findUser = async (req, res) => {
 
 };
 
+const getUsers = async (req, res) => {
+  try {
+    const users = await loginService.getUsers();
+    if (!users) {
+      return res.status(400).json({ status: 400, message: 'Sem usuários cadastrados' })
+    }
+
+    return res.status(200).json({ status: 200, message: 'Success!', users});
+  } catch (err) {
+    return res.status(500).json({ message: 'Erro interno', error: err.message });
+  }
+
+}
+
 module.exports = {
-  findUser,
+  generateToken,
+  getUsers,
 }

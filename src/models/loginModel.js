@@ -1,6 +1,6 @@
 const connection = require('../connection/connection');
 
-const findUser = async (name) => {
+const generateToken = async (name) => {
   const [user] = await connection.execute(
     'SELECT * FROM user WHERE first_name = ?;',
     [name]
@@ -9,6 +9,15 @@ const findUser = async (name) => {
   return user;
 };
 
+const getUsers = async () => {
+  const [user] = await connection.execute(
+    'SELECT * FROM user;'
+  );
+
+  return user;
+};
+
 module.exports = {
-  findUser,
+  generateToken,
+  getUsers,
 };

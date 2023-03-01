@@ -1,11 +1,18 @@
 const loginModel = require('../models/loginModel');
 
-const findUser = async (login) => {
-  user = await loginModel.findUser(login);
+const generateToken = async (name) => {
+  user = await loginModel.generateToken(name);
+  
+  return user;
+};
+
+const getUsers = async () => {
+  user = await loginModel.getUsers();
   
   return user;
 };
 
 module.exports = {
-  findUser,
+  generateToken,
+  getUsers,
 }

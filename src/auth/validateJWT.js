@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 require('dotenv/config');
-const { UserService } = require('../services');
+const loginService = require('../services/loginService');
 
 /* Mesma chave privada que usamos para criptografar o token.
    Agora, vamos usá-la para descriptografá-lo.
@@ -38,7 +38,7 @@ const validateJWT = async (req, res, next) => {
        por isso não é necessário fazer validação do tempo.
        Caso esteja tudo certo, nós então usamos o serviço de usuário para obter seus dados atualizados */
 
-    const user = await UserService.getByUserId(decoded.data.userId);
+    const user = await loginService.getUsers(decoded);
 
     /* Não existe um usuário na nossa base com o id informado no token. */
     if (!user) {
