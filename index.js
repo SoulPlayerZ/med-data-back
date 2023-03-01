@@ -8,7 +8,7 @@ const loginController = require('./src/controllers/loginController');
 
 const PORT = process.env.PORT || 3000;
 
-app.get('/login', loginController.findUser);  
+app.post('/login', loginController.findUser);  
 
 
 app.listen(PORT, () => {
